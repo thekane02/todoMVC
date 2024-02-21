@@ -19,9 +19,10 @@ const filterByStatus = (listTodos = [], status = '', id) => {
       return listTodos
   }
 }
-// const filterTodosLeft = (listTodos = []) => {
-//   return listTodos.filter((item) => !item.isCompleted);
-// };
+//phần này chưa lm đc  dùng redux toolkit nhé
+const filterTodosLeft = (listTodos = []) => {
+  return listTodos.filter((item) => !item.isCompleted);
+};
 
 const App = () => {
   const [listTodos, setListTodos] = useState([]);
