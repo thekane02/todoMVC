@@ -23,6 +23,7 @@ const todosSlice = createSlice({
     addTodo: (state, action) => {
       const { id, text } = action.payload;
       state.listTodos.push({ id, text, isCompleted: false });
+      saveTodosToLocalStorage(state.listTodos);
     },
     markCompleted: (state, action) => {
       const { id } = action.payload;
@@ -30,10 +31,12 @@ const todosSlice = createSlice({
       if (todoToUpdate) {
         todoToUpdate.isCompleted = !todoToUpdate.isCompleted;
       }
+      saveTodosToLocalStorage(state.listTodos);
     },
     removeTodo: (state, action) => {
       const { id } = action.payload;
       state.listTodos = state.listTodos.filter((todo) => todo.id !== id);
+      saveTodosToLocalStorage(state.listTodos);
     },
     checkAll: (state) => {
       state.listTodos = state.listTodos.map((item) => ({
@@ -41,18 +44,23 @@ const todosSlice = createSlice({
         isCompleted: !state.isCheckedAll,
       }));
       state.isCheckedAll = !state.isCheckedAll;
+      saveTodosToLocalStorage(state.listTodos);
     },
     setStatusFilter: (state, action) => {
       state.activeButton = action.payload;
+      saveTodosToLocalStorage(state.listTodos);
     },
     filterTodosLeft: (state) => {
       state.listTodos = state.listTodos.filter((item) => !item.isCompleted);
+      saveTodosToLocalStorage(state.listTodos);
     },
     clearCompleted: (state) => {
       state.listTodos = state.listTodos.filter((todo) => !todo.isCompleted);
+      saveTodosToLocalStorage(state.listTodos);
     },
     setEditingTodo: (state, action) => {
       state.todoEditingId = action.payload;
+      saveTodosToLocalStorage(state.listTodos);
     },
     editTodo: (state, action) => {
       const { id, text } = action.payload;
@@ -61,6 +69,7 @@ const todosSlice = createSlice({
         todoToEdit.text = text;
       }
       state.todoEditingId = null;
+      saveTodosToLocalStorage(state.listTodos);
     },
     completed: (state, action) => {
       const { id } = action.payload;

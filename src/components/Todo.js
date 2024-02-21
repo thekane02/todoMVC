@@ -7,7 +7,7 @@ import {
   editTodo,
 } from "../store/slices/todosSlice";
 
-const Todo = ({ todo, index }) => {
+const Todo = ({ todo, index, filterType }) => {
   const dispatch = useDispatch();
   const todoEditingId = useSelector((state) => state.todos.todoEditingId);
 

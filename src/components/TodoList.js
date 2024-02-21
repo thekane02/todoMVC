@@ -6,6 +6,8 @@ import { checkAll } from "../store/slices/todosSlice";
 const TodoList = () => {
   const dispatch = useDispatch();
   const listTodos = useSelector((state) => state.todos.listTodos);
+  const filterType = useSelector((state) => state.filter);
+  console.log("TodoList  filterType:", filterType);
   const isCheckedAll = useSelector((state) => state.todos.isCheckedAll);
 
   console.log(listTodos);
@@ -24,7 +26,17 @@ const TodoList = () => {
       <label htmlFor="toggle-all" onClick={handleCheckAll}></label>
       <ul className="todo-list">
         {listTodos.map((todo, index) => (
-          <Todo key={todo.id} index={index} todo={todo} />
+          <>
+            {filterType === "ACTIVE" && !todo.isCompleted && (
+              <Todo key={todo.id} index={index} todo={todo} />
+            )}
+            {filterType === "COMPLETED" && todo.isCompleted && (
+              <Todo key={todo.id} index={index} todo={todo} />
+            )}
+            {(filterType === "ALL" || !filterType) && (
+              <Todo key={todo.id} index={index} todo={todo} />
+            )}
+          </>
         ))}
       </ul>
     </section>

@@ -6,7 +6,7 @@ import { setFilter } from "../store/slices/filterSlice";
 
 const Footer = () => {
   const dispatch = useDispatch();
-  const activeButton = useSelector((state) => state.todos.status);
+  const activeButton = useSelector((state) => state.filter);
   const numOfTodosLeft = useSelector(
     (state) => state.todos.listTodos.filter((todo) => !todo.isCompleted).length
   );
